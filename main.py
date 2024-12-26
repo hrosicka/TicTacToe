@@ -9,6 +9,9 @@ class TicTacToe:
         self.current_player = "X"
         self.winner = None
 
+        self.winner_label = tk.Label(self.root, text=f"Who wins?", font=('Arial', 15))
+        self.winner_label.grid(row=4, column=1, padx=10, pady=10, columnspan=2)
+
         self.create_buttons()
         self.root.mainloop()
 
@@ -44,6 +47,11 @@ class TicTacToe:
             return True
         if all(self.buttons[i][2-i]['text'] == self.current_player for i in range(3)):
             return True
+        
+        # Check "Cat's Game"
+        if all(self.buttons[i][j]['text'] != '' for i in range(3) for j in range(3)):
+            self.current_player = "Cat's Game"
+            return True
 
         return False
 
@@ -51,8 +59,8 @@ class TicTacToe:
         self.current_player = "O" if self.current_player == "X" else "X"
 
     def show_winner(self):
-        winner_label = tk.Label(self.root, text=f"{self.current_player} wins!", font=('Arial', 20))
-        winner_label.pack()
+        self.winner_label.configure(text=f"{self.current_player} wins!")
+
         for row in self.buttons:
             for button in row:
                 button['state'] = 'disabled'
