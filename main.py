@@ -5,6 +5,11 @@ class TicTacToe:
         self.root = tk.Tk()
         self.root.title("Tic Tac Toe")
 
+        # Initialize statistics
+        self.player_x_wins = 0
+        self.player_o_wins = 0
+        self.ties = 0
+
         self.buttons = [[None for _ in range(3)] for _ in range(3)]
         self.current_player = "X"
         self.winner = None
@@ -22,6 +27,10 @@ class TicTacToe:
                                    command=lambda row=i, col=j: self.click_button(row, col))
                 button.grid(row=i, column=j)
                 self.buttons[i][j] = button
+
+        # Create statistics label
+        self.statistics_label = tk.Label(self.root, text=f"X: {self.player_x_wins} | O: {self.player_o_wins} | Ties: {self.ties}", font=('Arial', 12))
+        self.statistics_label.grid(row=5, column=1, columnspan=2, padx=10, pady=10) 
 
     def click_button(self, row, col):
         if self.buttons[row][col]['text'] == "":
@@ -59,7 +68,15 @@ class TicTacToe:
         self.current_player = "O" if self.current_player == "X" else "X"
 
     def show_winner(self):
+
+        if self.current_player == "X":
+            self.player_x_wins += 1
+        elif self.current_player == "O":
+            self.player_o_wins += 1
+        elif self.current_player == "Cat's Game":
+            self.ties += 1
         self.winner_label.configure(text=f"{self.current_player} wins!")
+
 
         for row in self.buttons:
             for button in row:
@@ -81,6 +98,9 @@ class TicTacToe:
         self.current_player = "X"
         self.winner = None
         self.winner_label.configure(text="Who wins?")
+
+        # Update statistics label
+        self.statistics_label.configure(text=f"X: {self.player_x_wins} | O: {self.player_o_wins} | Ties: {self.ties}")
 
 if __name__ == "__main__":
     game = TicTacToe()
