@@ -65,5 +65,22 @@ class TicTacToe:
             for button in row:
                 button['state'] = 'disabled'
 
+        # Deaktivace tlačítek a krátká pauza před automatickou obnovou
+        for row in self.buttons:
+            for button in row:
+                button['state'] = 'disabled'
+        self.root.after(5000, self.reset_game)
+
+
+    def reset_game(self):
+        # Vyprázdnění herního pole, reset proměnných a aktivace tlačítek
+        for i in range(3):
+            for j in range(3):
+                self.buttons[i][j]['text'] = ""
+                self.buttons[i][j]['state'] = 'normal'
+        self.current_player = "X"
+        self.winner = None
+        self.winner_label.configure(text="Who wins?")
+
 if __name__ == "__main__":
     game = TicTacToe()
