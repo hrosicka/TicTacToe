@@ -1,7 +1,15 @@
 import tkinter as tk
 
 class TicTacToe:
+    """The Tic Tac Toe game class that manages the game state, handles player turns, and determines the winner."""
+    
     def __init__(self):
+        """Initializes the Tic Tac Toe game.
+
+        This method creates the main Tkinter window, sets the window title to "Tic Tac Toe", initializes game
+        statistics variables (wins for X, O, and ties), creates a label to display the winner, creates the game board
+        with buttons, and starts the Tkinter main event loop.
+        """
         self.root = tk.Tk()
         self.root.title("Tic Tac Toe")
 
@@ -21,6 +29,15 @@ class TicTacToe:
         self.root.mainloop()
 
     def create_buttons(self):
+        """Creates the Tic Tac Toe game board with buttons.
+
+        This method iterates through a 3x3 grid to create buttons for each cell on the game board. Each button is
+        configured with an empty text label, a font size, and a width/height. When a button is clicked, it calls the
+        `click_button` method, passing its row and column coordinates. The buttons are added to the game board using
+        the Tkinter `grid` layout manager. Additionally, this method creates a label to display the game statistics
+        (X wins, O wins, ties).
+        """
+
         for i in range(3):
             for j in range(3):
                 button = tk.Button(self.root, text="", font=('Arial', 20), width=5, height=2,
@@ -33,6 +50,13 @@ class TicTacToe:
         self.statistics_label.grid(row=5, column=1, columnspan=2, padx=10, pady=10) 
 
     def click_button(self, row, col):
+        """Handles a button click on the Tic Tac Toe game board.
+
+        This method checks if the clicked button's space is empty. If empty, it places the current player's mark (X or O)
+        on the button and updates the game board. It then checks for a winner using the `check_win` method. If there's a
+        winner, it calls the `show_winner` method to display the winner and disable all buttons. If no winner, it switches
+        the current player to X or O using the `switch_player` method.
+        """
         if self.buttons[row][col]['text'] == "":
             self.buttons[row][col]['text'] = self.current_player
             if self.check_win():
@@ -41,6 +65,15 @@ class TicTacToe:
                 self.switch_player()
 
     def check_win(self):
+        """Checks for a winner on the Tic Tac Toe game board.
+
+        This method checks rows, columns, and diagonals for three matching marks (X or O) to determine a winner.
+        It also checks for a "Cat's Game" scenario where all cells are filled but no winner is found.
+
+        Returns:
+            True if a winner is found or a "Cat's Game" occurs, False otherwise.
+        """
+
         # Check rows
         for i in range(3):
             if all(self.buttons[i][j]['text'] == self.current_player for j in range(3)):
@@ -65,9 +98,12 @@ class TicTacToe:
         return False
 
     def switch_player(self):
+        """Switches the current player."""
+
         self.current_player = "O" if self.current_player == "X" else "X"
 
     def show_winner(self):
+        """Displays the winner and disables buttons."""
 
         if self.current_player == "X":
             self.player_x_wins += 1
@@ -82,7 +118,6 @@ class TicTacToe:
             for button in row:
                 button['state'] = 'disabled'
 
-        # Deaktivace tlačítek a krátká pauza před automatickou obnovou
         for row in self.buttons:
             for button in row:
                 button['state'] = 'disabled'
@@ -90,7 +125,8 @@ class TicTacToe:
 
 
     def reset_game(self):
-        # Vyprázdnění herního pole, reset proměnných a aktivace tlačítek
+        """Resets the game board and variables for a new game."""
+        
         for i in range(3):
             for j in range(3):
                 self.buttons[i][j]['text'] = ""
