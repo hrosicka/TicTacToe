@@ -111,7 +111,7 @@ class TicTacToe:
             self.player_o_wins += 1
         elif self.current_player == "Cat's Game":
             self.ties += 1
-        self.winner_label.configure(text=f"{self.current_player} wins!")
+        self.winner_label.config(text=f"{self.current_player} wins!")
 
 
         for row in self.buttons:
@@ -133,10 +133,10 @@ class TicTacToe:
                 self.buttons[i][j]['state'] = 'normal'
         self.current_player = "X"
         self.winner = None
-        self.winner_label.configure(text="Who wins?")
+        self.winner_label.config(text="Who wins?")
 
         # Update statistics label
-        self.statistics_label.configure(text=f"X: {self.player_x_wins} | O: {self.player_o_wins} | Ties: {self.ties}")
+        self.statistics_label.config(text=f"X: {self.player_x_wins} | O: {self.player_o_wins} | Ties: {self.ties}")
 
 if __name__ == "__main__":
     game = TicTacToe()
