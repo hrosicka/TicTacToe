@@ -1,4 +1,6 @@
 import tkinter as tk
+import random
+import tkinter.messagebox as messagebox
 
 class TicTacToe:
     """The Tic Tac Toe game class that manages the game state, handles player turns, and determines the winner."""
@@ -19,7 +21,7 @@ class TicTacToe:
         self.ties = 0
 
         self.buttons = [[None for _ in range(3)] for _ in range(3)]
-        self.current_player = "X"
+        self.start_game()
         self.winner = None
 
         self.winner_label = tk.Label(self.root, text=f"Who wins?", font=('Arial', 15))
@@ -27,6 +29,22 @@ class TicTacToe:
 
         self.create_buttons()
         self.root.mainloop()
+
+    def determine_first_player(self):
+        """Randomly determines the first player."""
+        return random.choice(["X", "O"])
+    
+    def start_game(self):
+        """Starts a new game and displays an information message box about the starting player."""
+
+        # Randomly determine the starting player (either 'X' or 'O')
+        self.current_player = self.determine_first_player()
+
+        # Display an information message box with the starting player
+        messagebox.showinfo(
+            title="Starting Player",
+            message=f"Player {self.current_player} starts first."
+        )
 
     def create_buttons(self):
         """Creates the Tic Tac Toe game board with buttons.
@@ -47,7 +65,7 @@ class TicTacToe:
 
         # Create statistics label
         self.statistics_label = tk.Label(self.root, text=f"X: {self.player_x_wins} | O: {self.player_o_wins} | Ties: {self.ties}", font=('Arial', 12))
-        self.statistics_label.grid(row=5, column=1, columnspan=2, padx=10, pady=10) 
+        self.statistics_label.grid(row=5, column=1, columnspan=2, padx=10, pady=10)
 
     def click_button(self, row, col):
         """Handles a button click on the Tic Tac Toe game board.
@@ -131,9 +149,9 @@ class TicTacToe:
             for j in range(3):
                 self.buttons[i][j]['text'] = ""
                 self.buttons[i][j]['state'] = 'normal'
-        self.current_player = "X"
         self.winner = None
         self.winner_label.config(text="Who wins?")
+        self.start_game()
 
         # Update statistics label
         self.statistics_label.config(text=f"X: {self.player_x_wins} | O: {self.player_o_wins} | Ties: {self.ties}")
