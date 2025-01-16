@@ -102,14 +102,11 @@ class TicTacToe:
             True if a winner is found or a "Cat's Game" occurs, False otherwise.
         """
 
-        # Check rows
+        # Check rows and columns
         for i in range(3):
             if all(self.buttons[i][j]['text'] == self.current_player for j in range(3)):
                 return True
-
-        # Check columns
-        for j in range(3):
-            if all(self.buttons[i][j]['text'] == self.current_player for i in range(3)):
+            if all(self.buttons[j][i]['text'] == self.current_player for j in range(3)):
                 return True
 
         # Check diagonals
