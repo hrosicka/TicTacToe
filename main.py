@@ -1,3 +1,6 @@
+from ctypes import windll
+windll.shcore.SetProcessDpiAwareness(1)
+
 import tkinter as tk
 import random
 import tkinter.messagebox as messagebox
@@ -14,23 +17,24 @@ class TicTacToe:
         """
         self.root = tk.Tk()
         self.root.title("Tic Tac Toe")
+        self.root.resizable(False, False)
 
         # Initialize statistics
-        self.player_x_wins = 0
-        self.player_o_wins = 0
-        self.ties = 0
+        self.player_x_wins = 0          # Number of wins for player X
+        self.player_o_wins = 0          # Number of wins for player O
+        self.ties = 0                   # Number of ties
+        self.current_player = None      # Current player (X or O)
+        self.winner = None              # Stores the winner (X, O, or "Cat's Game")
+        self.buttons = [[None for _ in range(3)] for _ in range(3)] # 2D list to hold buttons
 
-        self.buttons = [[None for _ in range(3)] for _ in range(3)]
-        self.player_colors = {"X": "lightgreen", "O": "lightcoral"} 
-        self.default_button_color = "lightblue" 
+        self.player_colors = {"X": "lightgreen", "O": "lightcoral"}         # Player colors
+        self.default_button_color = "lightblue"                             # Default button color
 
-        self.winner = None
-
-        self.winner_label = tk.Label(self.root, text=f"Who wins?", font=('Arial', 15))
+        self.winner_label = tk.Label(self.root, text=f"Who wins?", font=('Arial', 14))
         self.winner_label.grid(row=4, column=1, padx=10, pady=10, columnspan=2)
 
-        self.create_buttons()
-        self.start_game()
+        self.create_widgets()    # Create the game board buttons
+        self.start_game()        # Start a new game
         self.root.mainloop()
 
     def determine_first_player(self):
@@ -55,7 +59,7 @@ class TicTacToe:
             message=f"Player {self.current_player} starts first."
         )
 
-    def create_buttons(self):
+    def create_widgets(self):
         """Creates the Tic Tac Toe game board with buttons.
 
         This method iterates through a 3x3 grid to create buttons for each cell on the game board. Each button is
@@ -102,14 +106,11 @@ class TicTacToe:
             True if a winner is found or a "Cat's Game" occurs, False otherwise.
         """
 
-        # Check rows
+        # Check rows and columns
         for i in range(3):
             if all(self.buttons[i][j]['text'] == self.current_player for j in range(3)):
                 return True
-
-        # Check columns
-        for j in range(3):
-            if all(self.buttons[i][j]['text'] == self.current_player for i in range(3)):
+            if all(self.buttons[j][i]['text'] == self.current_player for j in range(3)):
                 return True
 
         # Check diagonals
@@ -141,15 +142,10 @@ class TicTacToe:
             self.ties += 1
         self.winner_label.config(text=f"{self.current_player} wins!")
 
-
         for row in self.buttons:
             for button in row:
                 button['state'] = 'disabled'
-
-        for row in self.buttons:
-            for button in row:
-                button['state'] = 'disabled'
-        self.root.after(5000, self.reset_game)
+        self.root.after(3500, self.reset_game)
 
 
     def reset_game(self):
