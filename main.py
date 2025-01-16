@@ -21,13 +21,16 @@ class TicTacToe:
         self.ties = 0
 
         self.buttons = [[None for _ in range(3)] for _ in range(3)]
-        self.start_game()
+        self.player_colors = {"X": "lightgreen", "O": "lightcoral"} 
+        self.default_button_color = "lightblue" 
+
         self.winner = None
 
         self.winner_label = tk.Label(self.root, text=f"Who wins?", font=('Arial', 15))
         self.winner_label.grid(row=4, column=1, padx=10, pady=10, columnspan=2)
 
         self.create_buttons()
+        self.start_game()
         self.root.mainloop()
 
     def determine_first_player(self):
@@ -39,6 +42,12 @@ class TicTacToe:
 
         # Randomly determine the starting player (either 'X' or 'O')
         self.current_player = self.determine_first_player()
+
+        for row in self.buttons:
+            for button in row:
+                button['text'] = ""
+                button['state'] = 'normal'
+                button.config(bg=self.default_button_color)
 
         # Display an information message box with the starting player
         messagebox.showinfo(
@@ -77,6 +86,7 @@ class TicTacToe:
         """
         if self.buttons[row][col]['text'] == "":
             self.buttons[row][col]['text'] = self.current_player
+            self.buttons[row][col].config(bg=self.player_colors[self.current_player])
             if self.check_win():
                 self.show_winner()
             else:
