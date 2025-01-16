@@ -141,11 +141,6 @@ class TicTacToe:
             self.ties += 1
         self.winner_label.config(text=f"{self.current_player} wins!")
 
-
-        for row in self.buttons:
-            for button in row:
-                button['state'] = 'disabled'
-
         for row in self.buttons:
             for button in row:
                 button['state'] = 'disabled'
