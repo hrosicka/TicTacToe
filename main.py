@@ -34,8 +34,61 @@ class TicTacToe:
         self.winner_label.grid(row=4, column=1, padx=10, pady=10, columnspan=2)
 
         self.create_widgets()    # Create the game board buttons
+        self.player1_choice = self.choose_symbol_color()
         self.start_game()        # Start a new game
         self.root.mainloop()
+
+    def choose_symbol_color(self):
+        """Vytvoří dialogové okno pro výběr X nebo O a barvu z palety s vizuální odezvou."""
+        choice = tk.StringVar(value=None)
+        color = tk.StringVar(value=None)
+
+        def set_choice(symbol):
+            choice.set(symbol)
+            x_button.config(relief=tk.RAISED if symbol != "X" else tk.SUNKEN) # Vizuální odezva pro X
+            o_button.config(relief=tk.RAISED if symbol != "O" else tk.SUNKEN) # Vizuální odezva pro O
+
+        def set_color(event):  # Add argument 'event'
+            chosen_color = event.widget.cget("bg")  # Get the color of the clicked button
+            color.set(chosen_color)
+            for btn in color_buttons:  # Reset všech tlačítek barev
+                btn.config(relief=tk.RAISED)
+            event.widget.config(relief=tk.SUNKEN)  # Zvýraznění vybrané barvy
+
+        def finalize_choice():
+            if choice.get() and color.get():
+                top.destroy()
+
+        top = tk.Toplevel(self.root)
+        top.title("Symbol and color")
+        top.resizable(False, False)
+        top.transient(self.root)
+
+        symbol_frame = tk.Frame(top)
+        symbol_frame.pack(pady=(10, 0))
+
+        x_button = tk.Button(symbol_frame, text="X", command=lambda: set_choice("X"), font=('Arial', 20), width=5, height=2, relief=tk.RAISED)
+        o_button = tk.Button(symbol_frame, text="O", command=lambda: set_choice("O"), font=('Arial', 20), width=5, height=2, relief=tk.RAISED)
+
+        x_button.pack(side=tk.LEFT, padx=10)
+        o_button.pack(side=tk.LEFT, padx=10)
+
+        color_frame = tk.Frame(top)
+        color_frame.pack(pady=(10, 10))
+
+        colors = ["lightgreen", "lightcoral", "lightblue", "yellow", "pink", "lightgray"]
+        color_buttons = []  # Uložení tlačítek barev do seznamu
+        for c in colors:
+            color_button = tk.Button(color_frame, bg=c, width=3, relief=tk.RAISED)
+            color_button.bind("<Button-1>", set_color)  # Bind na kliknutí myší
+            color_button.pack(side=tk.LEFT, padx=5)
+            color_buttons.append(color_button)  # Přidání do seznamu
+
+        confirm_button = tk.Button(top, text="Choose for Player 1", command=finalize_choice)
+        confirm_button.pack(pady=(0, 10))
+
+        top.wait_window()
+        return choice.get(), color.get()
 
     def determine_first_player(self):
         """Randomly determines the first player."""
