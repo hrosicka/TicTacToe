@@ -34,19 +34,27 @@ class TicTacToe:
         self.winner_label.grid(row=4, column=1, padx=10, pady=10, columnspan=2)
 
         self.create_widgets()    # Create the game board buttons
-        self.player1_choice = self.choose_symbol_color()
+        self.player1_choice, self.player1_color = self.choose_symbol_color(1)  # Player 1 chooses symbol and color
+        self.player2_choice, self.player2_color = self.choose_symbol_color(2)  # Player 2 chooses symbol and color (with limitations)
         self.start_game()        # Start a new game
         self.root.mainloop()
 
-    def choose_symbol_color(self):
+    def choose_symbol_color(self, player):
         """Vytvoří dialogové okno pro výběr X nebo O a barvu z palety s vizuální odezvou."""
         choice = tk.StringVar(value=None)
         color = tk.StringVar(value=None)
 
         def set_choice(symbol):
-            choice.set(symbol)
-            x_button.config(relief=tk.RAISED if symbol != "X" else tk.SUNKEN) # Vizuální odezva pro X
-            o_button.config(relief=tk.RAISED if symbol != "O" else tk.SUNKEN) # Vizuální odezva pro O
+            if player == 1:
+                choice.set(symbol)
+                x_button.config(relief=tk.RAISED if symbol != "X" else tk.SUNKEN)
+                o_button.config(relief=tk.RAISED if symbol != "O" else tk.SUNKEN)
+            elif player == 2:
+                if symbol in self.player1_choice:  # Check if symbol already chosen
+                    return  # Do nothing if already chosen
+                choice.set(symbol)
+                x_button.config(relief=tk.RAISED if symbol != "X" else tk.SUNKEN)
+                o_button.config(relief=tk.RAISED if symbol != "O" else tk.SUNKEN)
 
         def set_color(event=None, button=None):
             if button:  # Pokud bylo předáno tlačítko, aktualizujeme jeho vzhled
@@ -71,6 +79,12 @@ class TicTacToe:
         x_button = tk.Button(symbol_frame, text="X", command=lambda: set_choice("X"), font=('Arial', 20), width=5, height=2, relief=tk.RAISED)
         o_button = tk.Button(symbol_frame, text="O", command=lambda: set_choice("O"), font=('Arial', 20), width=5, height=2, relief=tk.RAISED)
 
+        if player == 2:
+            if "X" in self.player1_choice:  # Check if symbol already chosen
+                x_button.config(state=tk.DISABLED)
+            if "O" in self.player1_choice:  # Check if symbol already chosen
+                o_button.config(state=tk.DISABLED)
+
         x_button.pack(side=tk.LEFT, padx=10)
         o_button.pack(side=tk.LEFT, padx=10)
 
@@ -91,6 +105,8 @@ class TicTacToe:
 
         confirm_button = tk.Button(top, text="Choose for Player 1", command=finalize_choice)
         confirm_button.pack(pady=(0, 10))
+        if player == 2:
+            confirm_button.config(text="Choose for Player 2")
 
         top.wait_window()
         return choice.get(), color.get()
