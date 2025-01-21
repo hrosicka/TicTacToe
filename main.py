@@ -48,12 +48,13 @@ class TicTacToe:
             x_button.config(relief=tk.RAISED if symbol != "X" else tk.SUNKEN) # Vizuální odezva pro X
             o_button.config(relief=tk.RAISED if symbol != "O" else tk.SUNKEN) # Vizuální odezva pro O
 
-        def set_color(event):  # Add argument 'event'
-            chosen_color = event.widget.cget("bg")  # Get the color of the clicked button
-            color.set(chosen_color)
-            for btn in color_buttons:  # Reset všech tlačítek barev
-                btn.config(relief=tk.RAISED)
-            event.widget.config(relief=tk.SUNKEN)  # Zvýraznění vybrané barvy
+        def set_color(event=None, button=None):
+            if button:  # Pokud bylo předáno tlačítko, aktualizujeme jeho vzhled
+                chosen_color = button.cget("bg")
+                color.set(chosen_color)
+                for btn in color_buttons:
+                    btn.config(relief=tk.RAISED)
+                button.config(relief=tk.SUNKEN)
 
         def finalize_choice():
             if choice.get() and color.get():
@@ -83,6 +84,10 @@ class TicTacToe:
             color_button.bind("<Button-1>", set_color)  # Bind na kliknutí myší
             color_button.pack(side=tk.LEFT, padx=5)
             color_buttons.append(color_button)  # Přidání do seznamu
+        
+        # Přiřazení funkce set_color přímo ke všem tlačítkům barev
+        for btn in color_buttons:
+            btn.config(command=lambda btn=btn: set_color(button=btn))
 
         confirm_button = tk.Button(top, text="Choose for Player 1", command=finalize_choice)
         confirm_button.pack(pady=(0, 10))
