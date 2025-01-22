@@ -28,15 +28,21 @@ class TicTacToe:
         self.winner = None              # Stores the winner (X, O, or "Cat's Game")
         self.buttons = [[None for _ in range(3)] for _ in range(3)] # 2D list to hold buttons
 
-        self.player_colors = {"X": "lightgreen", "O": "lightcoral"}         # Player colors
-        self.default_button_color = "lightblue"                             # Default button color
-
         self.winner_label = tk.Label(self.root, text=f"Who wins?", font=('Arial', 14))
         self.winner_label.grid(row=4, column=1, padx=10, pady=10, columnspan=2)
 
         self.create_widgets()    # Create the game board buttons
         self.player1_choice, self.player1_color = self.choose_symbol_color(1)  # Player 1 chooses symbol and color
         self.player2_choice, self.player2_color = self.choose_symbol_color(2)  # Player 2 chooses symbol and color (with limitations)
+        
+        if "X" in self.player1_choice and "O" in self.player2_choice:
+            self.player_colors = {"X": self.player1_color, "O": self.player2_color}         # Player colors
+
+        elif "O" in self.player1_choice and "X" in self.player2_choice:
+            self.player_colors = {"X": self.player2_color, "O": self.player1_color}         # Player colors
+        
+        self.default_button_color = "lightblue"                                             # Default button color
+        
         self.start_game()        # Start a new game
         self.root.mainloop()
 
