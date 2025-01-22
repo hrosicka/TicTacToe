@@ -53,12 +53,13 @@ class TicTacToe:
             o_button.config(relief=tk.RAISED if symbol != "O" else tk.SUNKEN)
 
         def set_color(event=None, button=None):
-                if button:  # Pokud bylo předáno tlačítko, aktualizujeme jeho vzhled
-                    chosen_color = button.cget("bg")
-                    color.set(chosen_color)
-                    for btn in color_buttons:
-                        btn.config(relief=tk.RAISED)
-                    button.config(relief=tk.SUNKEN)
+            if button:  # Pokud bylo předáno tlačítko, aktualizujeme jeho vzhled
+                chosen_color = button.cget("bg")
+                color.set(chosen_color)
+
+                for btn in color_buttons:
+                    btn.config(relief=tk.RAISED)
+                button.config(relief=tk.SUNKEN)
 
         def finalize_choice():
             if choice.get() and color.get():
@@ -98,6 +99,12 @@ class TicTacToe:
         # Přiřazení funkce set_color přímo ke všem tlačítkům barev
         for btn in color_buttons:
             btn.config(command=lambda btn=btn: set_color(button=btn))
+
+        # Deaktivace tlačítek se stejnou barvou pro druhého hráče
+        if player == 2 and self.player1_color:
+            for btn in color_buttons:
+                if btn.cget("bg") == self.player1_color:
+                    btn.config(state=tk.DISABLED)
 
         confirm_button = tk.Button(top, text="Choose for Player 1", command=finalize_choice)
         confirm_button.pack(pady=(0, 10))
