@@ -45,24 +45,20 @@ class TicTacToe:
         color = tk.StringVar(value=None)
 
         def set_choice(symbol):
-            if player == 1:
-                choice.set(symbol)
-                x_button.config(relief=tk.RAISED if symbol != "X" else tk.SUNKEN)
-                o_button.config(relief=tk.RAISED if symbol != "O" else tk.SUNKEN)
-            elif player == 2:
+            if player == 2:
                 if symbol in self.player1_choice:  # Check if symbol already chosen
                     return  # Do nothing if already chosen
-                choice.set(symbol)
-                x_button.config(relief=tk.RAISED if symbol != "X" else tk.SUNKEN)
-                o_button.config(relief=tk.RAISED if symbol != "O" else tk.SUNKEN)
+            choice.set(symbol)
+            x_button.config(relief=tk.RAISED if symbol != "X" else tk.SUNKEN)
+            o_button.config(relief=tk.RAISED if symbol != "O" else tk.SUNKEN)
 
         def set_color(event=None, button=None):
-            if button:  # Pokud bylo předáno tlačítko, aktualizujeme jeho vzhled
-                chosen_color = button.cget("bg")
-                color.set(chosen_color)
-                for btn in color_buttons:
-                    btn.config(relief=tk.RAISED)
-                button.config(relief=tk.SUNKEN)
+                if button:  # Pokud bylo předáno tlačítko, aktualizujeme jeho vzhled
+                    chosen_color = button.cget("bg")
+                    color.set(chosen_color)
+                    for btn in color_buttons:
+                        btn.config(relief=tk.RAISED)
+                    button.config(relief=tk.SUNKEN)
 
         def finalize_choice():
             if choice.get() and color.get():
