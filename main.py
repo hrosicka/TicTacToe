@@ -4,6 +4,7 @@ windll.shcore.SetProcessDpiAwareness(1)
 import tkinter as tk
 import random
 import tkinter.messagebox as messagebox
+from idlelib.tooltip import Hovertip
 
 class TicTacToe:
     """The Tic Tac Toe game class that manages the game state, handles player turns, and determines the winner."""
@@ -79,8 +80,10 @@ class TicTacToe:
         if player == 2:
             if "X" in self.player1_choice:  # Check if symbol already chosen
                 x_button.config(state=tk.DISABLED)
+                Hovertip(x_button, "This symbol has already been chosen by Player 1")
             if "O" in self.player1_choice:  # Check if symbol already chosen
                 o_button.config(state=tk.DISABLED)
+                Hovertip(o_button, "This symbol has already been chosen by Player 1")
 
         x_button.pack(side=tk.LEFT, padx=10)
         o_button.pack(side=tk.LEFT, padx=10)
@@ -105,6 +108,7 @@ class TicTacToe:
             for btn in color_buttons:
                 if btn.cget("bg") == self.player1_color:
                     btn.config(state=tk.DISABLED)
+                    Hovertip(btn, "This color has already been chosen by Player 1")
 
         confirm_button = tk.Button(top, text="Choose for Player 1", command=finalize_choice)
         confirm_button.pack(pady=(0, 10))
