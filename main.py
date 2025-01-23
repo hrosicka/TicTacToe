@@ -87,6 +87,8 @@ class TicTacToe:
         top.title("Symbol and color")
         top.resizable(False, False)
         top.transient(self.root)
+        # Inactivate the close button ("X") of the top-level window
+        top.protocol("WM_DELETE_WINDOW", lambda: None)
 
         symbol_frame = tk.Frame(top)
         symbol_frame.pack(pady=(10, 0))
