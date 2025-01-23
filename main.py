@@ -44,7 +44,13 @@ class TicTacToe:
         self.default_button_color = "lightblue"                                             # Default button color
         
         self.start_game()        # Start a new game
+        self.root.protocol("WM_DELETE_WINDOW", self.on_closing)  # Bind protocol for close button
         self.root.mainloop()
+
+    def on_closing(self):
+        """Confirms if the user wants to quit the game."""
+        if messagebox.askyesno("Quit", "Are you sure you want to quit?"):
+            self.root.destroy()
 
     def choose_symbol_color(self, player):
         """Vytvoří dialogové okno pro výběr X nebo O a barvu z palety s vizuální odezvou."""
@@ -60,7 +66,7 @@ class TicTacToe:
             o_button.config(relief=tk.RAISED if symbol != "O" else tk.SUNKEN)
 
         def set_color(event=None, button=None):
-            if button:  # Pokud bylo předáno tlačítko, aktualizujeme jeho vzhled
+            if button:
                 chosen_color = button.cget("bg")
                 color.set(chosen_color)
 
@@ -71,6 +77,11 @@ class TicTacToe:
         def finalize_choice():
             if choice.get() and color.get():
                 top.destroy()
+            else:
+                if not choice.get():
+                    messagebox.showwarning("Warning", "Choose symbol, please.")
+                if not color.get():
+                    messagebox.showwarning("Warning", "Choose color, please.")
 
         top = tk.Toplevel(self.root)
         top.title("Symbol and color")
@@ -98,18 +109,16 @@ class TicTacToe:
         color_frame.pack(pady=(10, 10))
 
         colors = ["lightgreen", "lightcoral", "lightblue", "yellow", "pink", "lightgray"]
-        color_buttons = []  # Uložení tlačítek barev do seznamu
+        color_buttons = []
         for c in colors:
             color_button = tk.Button(color_frame, bg=c, width=3, relief=tk.RAISED)
-            color_button.bind("<Button-1>", set_color)  # Bind na kliknutí myší
+            color_button.bind("<Button-1>", set_color)
             color_button.pack(side=tk.LEFT, padx=5)
-            color_buttons.append(color_button)  # Přidání do seznamu
+            color_buttons.append(color_button)
         
-        # Přiřazení funkce set_color přímo ke všem tlačítkům barev
         for btn in color_buttons:
             btn.config(command=lambda btn=btn: set_color(button=btn))
 
-        # Deaktivace tlačítek se stejnou barvou pro druhého hráče
         if player == 2 and self.player1_color:
             for btn in color_buttons:
                 if btn.cget("bg") == self.player1_color:
