@@ -87,6 +87,8 @@ class TicTacToe:
         top.title("Symbol and color")
         top.resizable(False, False)
         top.transient(self.root)
+        # Inactivate the close button ("X") of the top-level window
+        top.protocol("WM_DELETE_WINDOW", lambda: None)
 
         symbol_frame = tk.Frame(top)
         symbol_frame.pack(pady=(10, 0))
@@ -230,32 +232,37 @@ class TicTacToe:
     def show_winner(self):
         """Displays the winner and disables buttons."""
 
-        if self.current_player == "X":
-            self.player_x_wins += 1
-        elif self.current_player == "O":
-            self.player_o_wins += 1
-        elif self.current_player == "Cat's Game":
-            self.ties += 1
+        def update_statistics():
+            if self.current_player == "X":
+                self.player_x_wins += 1
+            elif self.current_player == "O":
+                self.player_o_wins += 1
+            elif self.current_player == "Cat's Game":
+                self.ties += 1
+
+        def disable_buttons():
+            for row in self.buttons:
+                for button in row:
+                    button['state'] = 'disabled'
+        
+        update_statistics()
         self.winner_label.config(text=f"{self.current_player} wins!")
-
-        for row in self.buttons:
-            for button in row:
-                button['state'] = 'disabled'
+        disable_buttons()
         self.root.after(3500, self.reset_game)
-
 
     def reset_game(self):
         """Resets the game board and variables for a new game."""
         
-        for i in range(3):
-            for j in range(3):
-                self.buttons[i][j]['text'] = ""
-                self.buttons[i][j]['state'] = 'normal'
+        def reset_buttons():
+            for i in range(3):
+                for j in range(3):
+                    self.buttons[i][j]['text'] = ""
+                    self.buttons[i][j]['state'] = 'normal'
+        
+        reset_buttons()
         self.winner = None
         self.winner_label.config(text="Who wins?")
         self.start_game()
-
-        # Update statistics label
         self.statistics_label.config(text=f"X: {self.player_x_wins} | O: {self.player_o_wins} | Ties: {self.ties}")
 
 if __name__ == "__main__":
