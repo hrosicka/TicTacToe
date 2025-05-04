@@ -44,15 +44,24 @@ The first player to score a line of three Xs or Os horizontally, vertically, or 
     * When the game starts, a dialog window will appear for Player 1 to choose their symbol ('X' or 'O') and a color for their moves by clicking on the respective buttons.
     * Another dialog will then appear for Player 2 to make their symbol and color choices. Player 2 cannot choose the same symbol or color as Player 1. Tooltips will indicate if a symbol or color is already taken.
     * Click the "Choose for Player 1" or "Choose for Player 2" button to confirm your selections.
+
+    ![](https://github.com/hrosicka/TicTacToe/blob/master/doc/symbol_color.png)
+
 2.  **Playing the Game:**
     * The game will randomly determine which player goes first and display a message box indicating the starting player.
     * Players take turns clicking on an empty square on the game board to place their chosen symbol.
     * The color of the symbol placed on the board will correspond to the color chosen by the player.
+  
+    ![](https://github.com/hrosicka/TicTacToe/blob/master/doc/who_starts.png)
+    
 3.  **Game End:**
     * The game ends when one player gets three of their symbols in a row (horizontally, vertically, or diagonally), or when all nine squares are filled (a tie, also known as "Cat's Game").
     * The winner (or "Cat's Game") will be announced above the game board.
     * The game board will automatically reset after a short delay, and a new game will begin with a randomly chosen starting player.
     * The statistics for wins and ties are displayed below the game board and are updated after each game.
+
+    ![](https://github.com/hrosicka/TicTacToe/blob/master/doc/tic_tac_toe.png)
+      
 4.  **Quitting the Game:**
     * You can close the game window by clicking the close button (usually an "X" in the corner of the window). A confirmation dialog will appear to ensure you want to quit.
 
