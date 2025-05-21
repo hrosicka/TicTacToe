@@ -1,5 +1,9 @@
 # Welcome to Tic Tac Toe
 
+![Python](https://img.shields.io/badge/Made%20with-Python-blue?logo=python)
+![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
+![Game](https://img.shields.io/badge/Game-TicTacToe-red?logo=python)
+
 This is a simple and interactive Tic Tac Toe game implemented using Python and the Tkinter library for the graphical user interface (GUI).
 
 Get ready to dominate the grid and emerge victorious in this epic Tic Tac Toe battle! This isn't your childhood game anymore. It's a fast-paced, strategic showdown where only one player can claim the title of Tic Tac Toe Champion.
