@@ -87,3 +87,16 @@ The code is structured as a class `TicTacToe` which encapsulates the game logic 
 * **`if __name__ == "__main__":`:** Ensures that the `TicTacToe` class is instantiated and the game starts only when the script is executed directly.
 
 So, are you ready to claim your glory on the Tic Tac Toe board? Download, run, and let the strategic battles begin! May your Xs and Os always land in the right place.
+
+
+---
+
+## 👩‍💻 Author
+
+Lovingly crafted by [Hanka Robovska](https://github.com/hrosicka) 👩‍🔬
+
+---
+
+## 📝 License
+
+This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details. Free to use, modify, and distribute as needed.
