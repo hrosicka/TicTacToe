@@ -1,14 +1,18 @@
 # Welcome to Tic Tac Toe
 
+![Stars](https://img.shields.io/github/stars/hrosicka/TicTacToeWeb)
 ![Python](https://img.shields.io/badge/Made%20with-Python-blue?logo=python)
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 ![Game](https://img.shields.io/badge/Game-TicTacToe-red?logo=python)
+[![GitHub last commit](https://img.shields.io/github/last-commit/hrosicka/TicTacToeWeb)](https://github.com/hrosicka/TicTacToeWeb/commits/main)
 
 This is a simple and interactive Tic Tac Toe game implemented using Python and the Tkinter library for the graphical user interface (GUI).
 
 Get ready to dominate the grid and emerge victorious in this epic Tic Tac Toe battle! This isn't your childhood game anymore. It's a fast-paced, strategic showdown where only one player can claim the title of Tic Tac Toe Champion.
 
-## Features
+---
+
+## 🎮 Features
 
 * **Intuitive Graphical Interface:** A clean and user-friendly 3x3 grid for playing.
 * **Two Players:** Supports two players taking turns to place their marks.
@@ -22,9 +26,10 @@ Get ready to dominate the grid and emerge victorious in this epic Tic Tac Toe ba
 * **Tooltip Hints:** Provides helpful tooltips, especially when the second player is choosing their symbol and color, indicating if a choice has already been made by the first player.
 * **Confirmation on Exit:** Asks for confirmation before closing the game window to prevent accidental closure.
 * **DPI Awareness:** Includes code to improve the application's appearance on high-DPI displays on Windows.
-
   
-## How to Run
+---
+  
+## 🛠️ How to Run
 
 1.  **Prerequisites:** Ensure you have Python installed on your system. Tkinter is usually included with standard Python installations.
 2.  **Save the Code:** Save the provided Python code as a `.py` file (e.g., `main.py`).
@@ -34,13 +39,19 @@ Get ready to dominate the grid and emerge victorious in this epic Tic Tac Toe ba
     ```
     This will launch the Tic Tac Toe game window.
 
+---
+
 ## Conquer the Board
 
 The game takes place on a familiar 3x3 grid. You'll take turns placing your mark (X or O) on the empty squares. But here's the catch: think strategically! A true champion anticipates their opponent's moves, blocking their attempts at victory while maneuvering their own Xs or Os to form a winning line.
 
+---
+
 ## Claim Your Glory
 
 The first player to score a line of three Xs or Os horizontally, vertically, or diagonally reigns supreme! But wait, there's more! If all the squares fill up without a winner, it's not a boring tie. It's a  Cat's Game – a hilarious twist where the feline overlord claims the board as its territory!
+
+---
 
 ## Game Instructions
 
@@ -69,7 +80,9 @@ The first player to score a line of three Xs or Os horizontally, vertically, or 
 4.  **Quitting the Game:**
     * You can close the game window by clicking the close button (usually an "X" in the corner of the window). A confirmation dialog will appear to ensure you want to quit.
 
-## Code Explanation
+---
+
+## 🌟 Code Explanation
 
 The code is structured as a class `TicTacToe` which encapsulates the game logic and GUI elements. Here's a brief overview of the key parts:
 
