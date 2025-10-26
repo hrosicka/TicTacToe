@@ -1,10 +1,10 @@
 # Welcome to Tic Tac Toe
 
-![Stars](https://img.shields.io/github/stars/hrosicka/TicTacToeWeb)
+![Stars](https://img.shields.io/github/stars/hrosicka/TicTacToe)
 ![Python](https://img.shields.io/badge/Made%20with-Python-blue?logo=python)
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 ![Game](https://img.shields.io/badge/Game-TicTacToe-red?logo=python)
-[![GitHub last commit](https://img.shields.io/github/last-commit/hrosicka/TicTacToeWeb)](https://github.com/hrosicka/TicTacToeWeb/commits/main)
+[![GitHub last commit](https://img.shields.io/github/last-commit/hrosicka/TicTacToeWeb)](https://github.com/hrosicka/TicTacToe/commits/main)
 
 This is a simple and interactive Tic Tac Toe game implemented using Python and the Tkinter library for the graphical user interface (GUI).
 
